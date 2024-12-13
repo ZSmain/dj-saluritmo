@@ -28,6 +28,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # Third-party apps
+    "compressor",
+    # Local apps
+    "users",
 ]
 
 MIDDLEWARE = [
@@ -45,7 +49,7 @@ ROOT_URLCONF = "saluritmo.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -99,6 +103,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = "static/"
+
+COMPRESS_ROOT = BASE_DIR / "static"
+
+COMPRESS_ENABLED = True
+
+STATICFILES_FINDERS = ("compressor.finders.CompressorFinder",)
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
