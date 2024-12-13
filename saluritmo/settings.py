@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "compressor",
     # Local apps
     "users",
+    "core",
 ]
 
 MIDDLEWARE = [
