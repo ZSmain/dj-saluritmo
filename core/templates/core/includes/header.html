@@ -1,0 +1,13 @@
+<header class="bg-white shadow-sm mb-4">
+    <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+        <h1 class="text-lg font-semibold text-gray-900">{{ page_title }}</h1>
+        {% if show_streak %}
+        <div class="flex items-center bg-green-50 px-3 py-1 rounded-full">
+            <svg class="w-5 h-5 text-green-500 mr-1" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12.7 2.3a1 1 0 0 0-1.4 0l-9 9a1 1 0 0 0 0 1.4l9 9a1 1 0 0 0 1.4 0l9-9a1 1 0 0 0 0-1.4l-9-9z"/>
+            </svg>
+            <span class="text-green-700 font-medium">{{ streak_count }} day streak</span>
+        </div>
+        {% endif %}
+    </div>
+</header>
