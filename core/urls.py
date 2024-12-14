@@ -9,4 +9,5 @@ urlpatterns = [
     path("medications/", views.medications, name="medications"),
     path("history/", views.history, name="history"),
     path("settings/", views.settings, name="settings"),
+    path("fetch_weather/", views.fetch_weather, name="fetch_weather"),
 ]

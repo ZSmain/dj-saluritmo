@@ -1,5 +1,87 @@
-{% extends 'core/base.html' %}
+{% extends 'core/base.html' %} {% block content %}
+<div class="flex-1 grid gap-6 p-4">
+  <!-- Button to record asthma symptoms -->
+  <div class="flex flex-col justify-center items-center space-y-4">
+    <p class="text-center text-lg font-medium text-muted-foreground">
+      Record your daily data to keep track of your health
+    </p>
+    <button
+      id="fetch-weather-btn"
+      type="button"
+      class="w-24 h-24 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M12 9a4 4 0 0 0-2 7.5" />
+        <path d="M12 3v2" />
+        <path d="m6.6 18.4-1.4 1.4" />
+        <path d="M20 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" />
+        <path d="M4 13H2" />
+        <path d="M6.34 7.34 4.93 5.93" />
+      </svg>
+      <span class="sr-only">Get Weather Data</span>
+    </button>
+  </div>
 
-{% block content %}
-<h1 class="text-2xl font-bold mb-4">Home</h1>
+  <!-- Symptom recording interface, initially hidden -->
+  <div id="symptom-interface" class="hidden mt-4">
+    <div id="weather-data" class="mb-4">
+      <!-- Weather data will be inserted here -->
+    </div>
+    <div class="space-y-4">
+      <div>
+        <label for="breathing">Breathing</label>
+        <input type="range" id="breathing" name="breathing" min="0" max="100" />
+      </div>
+      <div>
+        <label for="mucus">Mucus</label>
+        <input type="range" id="mucus" name="mucus" min="0" max="100" />
+      </div>
+      <div>
+        <label for="wheezing">Wheezing</label>
+        <input type="range" id="wheezing" name="wheezing" min="0" max="100" />
+      </div>
+      <div>
+        <label for="coughing">Coughing</label>
+        <input type="range" id="coughing" name="coughing" min="0" max="100" />
+      </div>
+      <button class="px-4 py-2 bg-green-500 text-white rounded">Submit</button>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript to handle button click and fetch weather data -->
+<script>
+  document
+    .getElementById("fetch-weather-btn")
+    .addEventListener("click", function () {
+      fetch("?action=fetch_weather", {
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          const weatherDiv = document.getElementById("weather-data");
+          weatherDiv.innerHTML = `
+                <p>Temperature: ${data.temperature}</p>
+                <p>Humidity: ${data.humidity}</p>
+                <p>Wind: ${data.wind}</p>
+            `;
+          document
+            .getElementById("symptom-interface")
+            .classList.remove("hidden");
+        });
+    });
+</script>
+
 {% endblock content %}

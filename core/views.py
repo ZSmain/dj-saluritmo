@@ -1,7 +1,16 @@
 from django.shortcuts import render
+from django.http import JsonResponse
+
+from .utils import fetch_weather_data
 
 
 def home(request):
+    if (
+        request.headers.get("x-requested-with") == "XMLHttpRequest"
+        and request.GET.get("action") == "fetch_weather"
+    ):
+        weather_data = fetch_weather_data()
+        return JsonResponse(weather_data)
     # TODO: Calculate actual streak from user data
     context = {
         "page_title": "Home",
@@ -9,6 +18,11 @@ def home(request):
         "streak_count": 5,  # This should be calculated from actual data
     }
     return render(request, "core/home.html", context)
+
+
+def fetch_weather(request):
+    weather_data = fetch_weather_data()
+    return JsonResponse(weather_data)
 
 
 def medications(request):
